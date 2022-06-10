@@ -1,0 +1,31 @@
+syntax = "proto3";
+
+package agenda.v1;
+option go_package = "github.com/rotationalio/agenda/pkg/api/v1;api";
+
+service Agenda {
+    rpc Schedule(Item) returns (Item) {}
+    rpc Daily(Day) returns (Docket) {}
+}
+
+// An agenda item has a date, start and end times, a title and description.
+// When agenda items are scheduled the ID field is ignored.
+message Item {
+    string id = 1;
+    string title = 2;
+    string date = 3;
+    string start = 4;
+    string end = 5;
+    string description = 6;
+}
+
+message Day {
+    string date = 1;
+    string start = 2;
+    string end = 3;
+}
+
+message Docket {
+    string date = 1;
+    repeated Item items = 2;
+}
